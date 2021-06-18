@@ -1,25 +1,39 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
+type I1 interface {
+	Ha()
+}
+type I2 interface {
+	He()
+}
 type Dog struct {
 	Name string
 }
 
-func main() {
-	r := gin.Default()
-	r.Use(func(context *gin.Context) {
-		fmt.Println("测试")
-	})
-	r.GET("/", func(context *gin.Context) {
-		context.String(http.StatusOK, "OK")
-	})
+func (d Dog) Ha() {
+	fmt.Println("Ha")
+}
 
-	r.Run()
+func (d Dog) He() {
+	fmt.Println("He")
+}
+
+func main() {
+	var i I1
+	i = Dog{}
+	i.Ha()
+	ii := i.(I2)
+	ii.He()
+	db, err := sql.Open("mysql", "")
+	if nil != err {
+
+	}
+	db.SetConnMaxLifetime(1)
 	//s := make([]int64, 0, 10)
 	//fmt.Println(fmt.Sprintf("%v", s))
 	//s[0] = 100
