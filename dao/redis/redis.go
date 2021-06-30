@@ -3,19 +3,19 @@ package redis
 import (
 	"context"
 	"fmt"
+	"gin-web/config"
 	"github.com/go-redis/redis/v8"
-	"github.com/spf13/viper"
 	"time"
 )
 
 var rdb *redis.Client
 
-func Init() (err error) {
+func Init(cfg config.RedisConfig) (err error) {
 	rdb = redis.NewClient(&redis.Options{
-		Addr:     fmt.Sprintf("%s:%s", viper.GetString("redis.host"), viper.GetString("redis.port")),
-		Password: viper.GetString("redis.password"), // no password set
-		DB:       viper.GetInt("redis.db"),          // use default DB
-		PoolSize: viper.GetInt("redis.pool_size"),   // 连接池大小
+		Addr:     fmt.Sprintf("%s:%d", cfg.Host, cfg.Port),
+		Password: cfg.Password, // no password set
+		DB:       cfg.Db,       // use default DB
+		PoolSize: cfg.PoolSize, // 连接池大小
 	})
 	// 超时时间
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)

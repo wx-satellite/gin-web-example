@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"gin-web/routers"
-	"gin-web/settings"
+	"gin-web/sysinit"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
@@ -18,19 +18,20 @@ import (
 func main() {
 
 	g := gin.New()
+
 	// 加载路由
 	routers.Load(g)
 
-	// 优雅关闭
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", viper.GetInt("app.port")),
 		Handler: g,
 	}
 
+	// 开启web服务
 	go func() {
 		// 开启一个goroutine启动服务
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			settings.Close()
+			sysinit.Close()
 			// 终止程序
 			zap.L().Fatal("服务启动失败", zap.Error(err))
 		}
@@ -53,5 +54,5 @@ func main() {
 	}
 
 	// 关闭资源
-	settings.Close()
+	sysinit.Close()
 }

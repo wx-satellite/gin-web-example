@@ -1,25 +1,25 @@
 package logger
 
 import (
+	"gin-web/config"
 	"github.com/natefinch/lumberjack"
-	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
 
 // InitLogger 初始化Logger
-func Init() (err error) {
+func Init(cfg config.LogConfig) (err error) {
 	writeSyncer := getLogWriter(
-		viper.GetString("log.filename"),
-		viper.GetInt("log.max_size"),
-		viper.GetInt("log.max_backups"),
-		viper.GetInt("log.max_age"),
+		cfg.Filename,
+		cfg.MaxSize,
+		cfg.MaxBackups,
+		cfg.MaxAge,
 	)
 	encoder := getEncoder()
 
 	// 将字符串转成 zap.InfoLevel 等内部值
 	var l = new(zapcore.Level)
-	err = l.UnmarshalText([]byte(viper.GetString("log.level")))
+	err = l.UnmarshalText([]byte(cfg.Level))
 	if err != nil {
 		return
 	}
