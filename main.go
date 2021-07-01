@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"gin-web/routers"
 	"gin-web/sysinit"
@@ -16,6 +17,11 @@ import (
 )
 
 func main() {
+	// 指定配置文件
+	var filename string
+	flag.StringVar(&filename, "f", "", "配置文件")
+	flag.Parse()
+	sysinit.Init(filename)
 
 	g := gin.New()
 

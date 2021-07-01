@@ -44,10 +44,13 @@ type RedisConfig struct {
 	PoolSize int    `mapstructure:"pool_size"`
 }
 
-func Init() (err error) {
-	viper.SetConfigName("app.yaml") // 文件名称
-	viper.SetConfigType("yaml")     // 配置文件的内容是什么类型的，本项目使用yaml类型
-	viper.AddConfigPath(".")        // 去指定的路径里搜索目标文件，可以多次设值
+func Init(filename string) (err error) {
+	if filename != "" {
+		viper.SetConfigFile(filename)
+	} else {
+		viper.SetConfigName("app") // 文件名称（ 不需要指定后缀名 ）
+		viper.AddConfigPath(".")   // 去指定的路径里搜索目标文件，可以多次设值
+	}
 	if err = viper.ReadInConfig(); nil != err {
 		return
 	}

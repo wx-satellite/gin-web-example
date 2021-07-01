@@ -7,8 +7,8 @@ import (
 	"gin-web/logger"
 )
 
-func init() {
-	if err := config.Init(); nil != err {
+func Init(filename string) {
+	if err := config.Init(filename); nil != err {
 		panic(err)
 	}
 	if err := logger.Init(config.Instance.LogConfig); nil != err {
