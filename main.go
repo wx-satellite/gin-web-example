@@ -4,10 +4,10 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"gin-web/config"
 	"gin-web/routers"
 	"gin-web/sysinit"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"net/http"
 	"os"
@@ -29,9 +29,10 @@ func main() {
 	routers.Load(g)
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%d", viper.GetInt("app.port")),
+		Addr:    fmt.Sprintf(":%d", config.Instance.Port),
 		Handler: g,
 	}
+
 
 	// 开启web服务
 	go func() {

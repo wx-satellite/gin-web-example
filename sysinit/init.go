@@ -5,6 +5,7 @@ import (
 	"gin-web/dao/mysql"
 	"gin-web/dao/redis"
 	"gin-web/logger"
+	"gin-web/pkg/snowflake"
 )
 
 func Init(filename string) {
@@ -19,6 +20,9 @@ func Init(filename string) {
 		return
 	}
 	if err := redis.Init(config.Instance.RedisConfig); nil != err {
+		panic(err)
+	}
+	if err := snowflake.Init(config.Instance.StartTime, config.Instance.MachineID); nil != err {
 		panic(err)
 	}
 }
