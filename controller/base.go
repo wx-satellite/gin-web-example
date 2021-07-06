@@ -8,7 +8,27 @@ import (
 	"strings"
 )
 
+/**
+{
+	"code": 1000, // 错误码
+	"msg": xxx, // 描述
+	"data": {} // 数据
+}
+*/
+
+/**
+错误的处理方式：
+1. 维护一份 Code 和 Message 的 map
+2. 维护自定义错误类型：
+	type Error struct {
+		Code    int
+		Message string //可以展示给前端的信息
+		Err     string `json:"-"` //具体错误信息，可能包含敏感数据
+		Caller  string `json:"-"` //调用栈
+	}
+*/
 type Response struct {
+	Code    int         `json:"code"`
 	Data    interface{} `json:"data"`
 	Message string      `json:"message"`
 }

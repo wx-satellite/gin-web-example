@@ -14,6 +14,8 @@ func Load(engine *gin.Engine, mw ...gin.HandlerFunc) {
 
 	// 注册
 	engine.POST("/sign_up", controller.SignUpHandler)
+	// 登陆
+	engine.POST("/sign_in", controller.SignInHandler)
 
 	// 心跳检测
 	engine.GET("/ping", func(ctx *gin.Context) {

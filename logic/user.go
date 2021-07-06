@@ -1,12 +1,16 @@
 package logic
 
 import (
-	"fmt"
+	"errors"
 	"gin-web/dao/mysql"
 	"gin-web/models"
 	"gin-web/pkg/encryption"
 	"gin-web/pkg/snowflake"
 	"gin-web/request"
+)
+
+var (
+	ErrUserNameExist = errors.New("用户名已经存在")
 )
 
 func SignUp(in *request.SignUpRequest) (err error) {
@@ -15,7 +19,7 @@ func SignUp(in *request.SignUpRequest) (err error) {
 		return
 	}
 	if exist {
-		err = fmt.Errorf("该用户名：%s 已经存在", in.Username)
+		err = ErrUserNameExist
 		return
 	}
 	obj := new(models.User)
@@ -25,5 +29,9 @@ func SignUp(in *request.SignUpRequest) (err error) {
 	// 密码加密
 	obj.Password = encryption.Md5(in.Password)
 	_, err = mysql.InsertUser(obj)
+	return
+}
+
+func SignIn(in *request.SignInRequest) (err error) {
 	return
 }

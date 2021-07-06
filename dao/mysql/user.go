@@ -1,6 +1,14 @@
 package mysql
 
-import "gin-web/models"
+import (
+	"database/sql"
+	"errors"
+	"gin-web/models"
+)
+
+var (
+	ErrUserNotExist = errors.New("用户不存在！")
+)
 
 // CheckUserExist 指定用户名的用户是否存在
 func CheckUserExist(username string) (bool, error) {
@@ -21,4 +29,16 @@ func InsertUser(obj *models.User) (id int64, err error) {
 		return
 	}
 	return result.LastInsertId()
+}
+
+// FindUserByUsername 根据用户名获取用户
+func FindUserByUsername(username string) (obj *models.User, err error) {
+	obj = new(models.User)
+	sqlStr := `select * from users where username = ?`
+	err = db.Get(obj, sqlStr, username)
+	//  err 为 sql.ErrNoRows 表示用户不存在
+	if err == sql.ErrNoRows {
+		err = ErrUserNotExist
+	}
+	return
 }
