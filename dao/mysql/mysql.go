@@ -7,6 +7,9 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+// 将每一步数据库操作封装成函数，待 logic 层根据业务需求调用
+
+// sqlx 是对 database/sql 的封装，对于一些不熟悉的操作可以查看 sqlx 或者 database/sql 库的文档，例如模型的db标签等等
 var db *sqlx.DB
 
 func Init(cfg config.MysqlConfig) (err error) {

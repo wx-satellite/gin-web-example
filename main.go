@@ -4,7 +4,6 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"gin-web/config"
 	"gin-web/routers"
 	"gin-web/sysinit"
 	"github.com/gin-gonic/gin"
@@ -22,6 +21,7 @@ func main() {
 	flag.StringVar(&filename, "f", "", "配置文件")
 	flag.Parse()
 	sysinit.Init(filename)
+	gin.SetMode(gin.ReleaseMode)
 
 	g := gin.New()
 
@@ -29,10 +29,10 @@ func main() {
 	routers.Load(g)
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%d", config.Instance.Port),
+		//Addr:    fmt.Sprintf(":%d", config.Instance.Port),
+		Addr:    fmt.Sprintf(":%d", 8080),
 		Handler: g,
 	}
-
 
 	// 开启web服务
 	go func() {

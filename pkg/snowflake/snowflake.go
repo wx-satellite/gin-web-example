@@ -4,8 +4,13 @@ import (
 	"github.com/bwmarrin/snowflake"
 	"time"
 )
+
 var node *snowflake.Node
-func Init(startTime string, machineId int64)(err error) {
+
+func Init(startTime string, machineId int64) (err error) {
+	if "" == startTime {
+		startTime = "2021-07-01"
+	}
 	var st time.Time
 	st, err = time.Parse("2006-01-02", startTime)
 	if nil != err {

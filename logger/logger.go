@@ -5,10 +5,11 @@ import (
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"os"
 )
 
 // InitLogger 初始化Logger
-func Init(cfg config.LogConfig) (err error) {
+func Init(cfg config.LogConfig, mode string) (err error) {
 	writeSyncer := getLogWriter(
 		cfg.Filename,
 		cfg.MaxSize,
@@ -23,9 +24,16 @@ func Init(cfg config.LogConfig) (err error) {
 	if err != nil {
 		return
 	}
-
-	core := zapcore.NewCore(encoder, writeSyncer, l)
-
+	var core zapcore.Core
+	if mode == "dev" { // 开发模式：日志往文件、终端输出
+		devEncoder := zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())
+		core = zapcore.NewTee(
+			zapcore.NewCore(devEncoder, zapcore.Lock(os.Stdout), zapcore.DebugLevel),
+			zapcore.NewCore(encoder, writeSyncer, l),
+		)
+	} else { // 生产模式：日志往文件写
+		core = zapcore.NewCore(encoder, writeSyncer, l)
+	}
 	// zap.AddCaller 将调用函数信息记录到日志中的功能
 	lg := zap.New(core, zap.AddCaller())
 
