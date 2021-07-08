@@ -5,6 +5,7 @@ import (
 	"gin-web/dao/mysql"
 	"gin-web/models"
 	"gin-web/pkg/encryption"
+	"gin-web/pkg/jwt"
 	"gin-web/pkg/snowflake"
 	"gin-web/request"
 )
@@ -32,6 +33,7 @@ func SignUp(in *request.SignUpRequest) (err error) {
 	return
 }
 
-func SignIn(in *request.SignInRequest) (err error) {
-	return
+func SignIn(in *request.SignInRequest) (token string, err error) {
+	obj := new(models.User)
+	return jwt.GenToken(obj.UserId)
 }

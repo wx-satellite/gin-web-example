@@ -34,12 +34,17 @@ func SignInHandler(ctx *gin.Context) {
 		return
 	}
 	// 业务逻辑处理
-	if err := logic.SignIn(in); err != nil {
+	token, err := logic.SignIn(in)
+	if err != nil {
 		zap.L().Error("SignIn fail", zap.Error(err))
 		SendFailResponse(ctx, err)
 		return
 	}
 	// 返回结果
-	SendSuccessResponse(ctx, nil)
+	SendSuccessResponse(ctx, struct {
+		Token string `json:"token"`
+	}{
+		Token: token,
+	})
 	return
 }
