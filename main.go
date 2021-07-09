@@ -21,7 +21,7 @@ func main() {
 	flag.StringVar(&filename, "f", "", "配置文件")
 	flag.Parse()
 	sysinit.Init(filename)
-	gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.DebugMode)
 
 	g := gin.New()
 
