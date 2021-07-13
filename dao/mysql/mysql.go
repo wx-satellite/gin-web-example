@@ -13,7 +13,8 @@ import (
 var db *sqlx.DB
 
 func Init(cfg config.MysqlConfig) (err error) {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True",
+	// parseTime=true&loc=Local 自动将数据库中的时间类型转成time.Time类型
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=true&loc=Local",
 		cfg.User,
 		cfg.Password,
 		cfg.Host,

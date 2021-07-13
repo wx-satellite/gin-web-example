@@ -7,6 +7,8 @@ import (
 	"go.uber.org/zap"
 )
 
+// -----  用户相关  -----
+
 func SignUpHandler(ctx *gin.Context) {
 	// 参数校验
 	in := new(request.SignUpRequest)

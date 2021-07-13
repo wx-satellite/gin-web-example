@@ -2,12 +2,7 @@ package mysql
 
 import (
 	"database/sql"
-	"errors"
 	"gin-web/models"
-)
-
-var (
-	ErrUserNotExist = errors.New("用户不存在！")
 )
 
 // CheckUserExist 指定用户名的用户是否存在

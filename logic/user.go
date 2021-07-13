@@ -34,6 +34,7 @@ func SignUp(in *request.SignUpRequest) (err error) {
 }
 
 func SignIn(in *request.SignInRequest) (token string, err error) {
+	// 校验用户名以及密码
 	obj := new(models.User)
 	return jwt.GenToken(obj.UserId)
 }

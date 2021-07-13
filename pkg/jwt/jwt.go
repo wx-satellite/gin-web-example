@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// 可以从配置文件中获取
 const TokenExpireDuration = time.Hour * 2
 
 var MySecret = []byte("夏天夏天悄悄过去")
