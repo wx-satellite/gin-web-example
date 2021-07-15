@@ -18,3 +18,9 @@ func CreatePost(in *request.CreatePostRequest) (err error) {
 
 	return
 }
+
+// PostDetail 根据帖子ID获取帖子详情
+func PostDetail(id int64) (res *ApiPostDetail, err error) {
+	// 查询并组合接口想要的数据
+	return
+}

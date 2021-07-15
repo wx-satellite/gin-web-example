@@ -32,6 +32,10 @@ func Load(engine *gin.Engine, mw ...gin.HandlerFunc) {
 
 		// 帖子
 		v1.POST("/post", controller.CreatePost)
+		v1.GET("/post/:id", controller.PostDetail)
+
+		// 投票
+		v1.POST("/vote", controller.VotePost)
 	}
 
 	// 为没有配置处理函数的路由添加处理函数

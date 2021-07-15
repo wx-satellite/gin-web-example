@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+const ContextUserIdKey = "userId"
+
 /**
 {
 	"code": 1000, // 错误码

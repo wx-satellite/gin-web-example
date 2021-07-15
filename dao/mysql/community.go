@@ -20,7 +20,7 @@ func Communities() (objs []*models.Community, err error) {
 func FindCommunity(id int64) (obj *models.Community, err error) {
 	obj = new(models.Community)
 	sqlStr := `select * from communities where id = ?`
-	if err = db.Select(obj, sqlStr, id); err != nil {
+	if err = db.Get(obj, sqlStr, id); err != nil {
 		if err == sql.ErrNoRows {
 			err = ErrInvalidId
 		}
