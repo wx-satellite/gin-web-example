@@ -15,7 +15,6 @@ func CreatePost(in *request.CreatePostRequest) (err error) {
 	obj.Content = in.Content
 	obj.AuthorId = in.AuthorId
 	// 插入数据库
-
 	return
 }
 
