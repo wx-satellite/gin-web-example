@@ -13,8 +13,19 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+
+	_ "gin-web/docs" // 千万不要忘了导入把你上一步生成的docs
+
+	gs "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
+// @title gin-web测试项目
+// @version 1.0
+// @description gin的学习项目
+
+// @host localhost:8080
+// @BasePath /api/v1
 func main() {
 	// 指定配置文件
 	var filename string
@@ -27,6 +38,10 @@ func main() {
 
 	// 加载路由
 	routers.Load(g)
+	g.GET("/hello/*any", func(c *gin.Context) {
+		fmt.Println(c.Param("any"))
+	})
+	g.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 
 	srv := &http.Server{
 		//Addr:    fmt.Sprintf(":%d", config.Instance.Port),

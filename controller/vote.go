@@ -11,5 +11,7 @@ func VotePost(ctx *gin.Context) {
 		SendFailResponse(ctx, err)
 		return
 	}
+	// 填充当前登陆的用户ID
+	in.UserId = getCurrentUserId(ctx)
 
 }

@@ -1,0 +1,46 @@
+basePath: /api/v1
+definitions:
+  controller.Response:
+    properties:
+      code:
+        description: 0 表示请求成功 -1 表示请求失败
+        type: integer
+      data:
+        description: 请求成功的数据
+        type: object
+      message:
+        description: 描述信息
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: gin的学习项目
+  title: gin-web测试项目
+  version: "1.0"
+paths:
+  /community:
+    get:
+      description: 社区列表接口
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - example: 1
+        in: query
+        name: page
+        type: integer
+      - example: 20
+        in: query
+        name: page_size
+        type: integer
+      responses:
+        "200":
+          description: 返回值
+          schema:
+            $ref: '#/definitions/controller.Response'
+      tags:
+      - 社区相关接口
+swagger: "2.0"

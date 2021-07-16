@@ -30,9 +30,18 @@ const ContextUserIdKey = "userId"
 	}
 */
 type Response struct {
-	Code    int         `json:"code"`
-	Data    interface{} `json:"data"`
-	Message string      `json:"message"`
+	Code    int         `json:"code"`    // 0 表示请求成功 -1 表示请求失败
+	Data    interface{} `json:"data"`    // 请求成功的数据
+	Message string      `json:"message"` // 描述信息
+}
+
+func getCurrentUserId(ctx *gin.Context) (userId int64) {
+	data, exists := ctx.Get(ContextUserIdKey)
+	if !exists {
+		return
+	}
+	userId, _ = data.(int64)
+	return
 }
 
 func successResponse(message string, data interface{}) Response {
@@ -60,5 +69,5 @@ func failResponse(err error) Response {
 	default:
 		message = err.Error()
 	}
-	return Response{Message: strings.Trim(message, "，")}
+	return Response{Message: strings.Trim(message, "，"), Code: -1}
 }

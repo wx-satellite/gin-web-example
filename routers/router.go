@@ -25,7 +25,7 @@ func Load(engine *gin.Engine, mw ...gin.HandlerFunc) {
 	})
 
 	// 社区
-	v1.Use(middlewares.JWTAuth())
+	//v1.Use(middlewares.JWTAuth())
 	{
 		v1.GET("/community", controller.Communities)
 		v1.GET("/community/:id", controller.CommunityDetail)
