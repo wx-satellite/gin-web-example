@@ -17,6 +17,7 @@ require (
 	github.com/go-redis/redis/v8 v8.10.0
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/jmoiron/sqlx v1.3.4
+	github.com/juju/ratelimit v1.0.1
 	github.com/magiconair/properties v1.8.5
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-isatty v0.0.13 // indirect
@@ -26,6 +27,7 @@ require (
 	github.com/swaggo/swag v1.7.0
 	go.uber.org/atomic v1.8.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
+	go.uber.org/ratelimit v0.2.0 // indirect
 	go.uber.org/zap v1.17.0
 	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
