@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"gin-web/routers"
 	"gin-web/sysinit"
+	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net/http"
@@ -38,6 +39,7 @@ func main() {
 
 	// 加载路由
 	routers.Load(g)
+	pprof.Register(g)
 	g.GET("/hello/*any", func(c *gin.Context) {
 		fmt.Println(c.Param("any"))
 	})

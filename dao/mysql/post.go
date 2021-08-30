@@ -1,5 +1,6 @@
 package mysql
 
 func CreatePost() {
+	//
 
 }
